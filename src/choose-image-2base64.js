@@ -14,11 +14,18 @@
  * limitations under the License.
  */
 
+"use strict";
+import {
+  filePath2Base64,
+  blob2Base64
+} from './util.js';
+
 /**
  * 选择图片转换为Base64格式输出
  * @return {Promise<string>} 返回图片的Base64编码
  */
 export default async function chooseImage2Base64() {
+  return new Promise(async (resolve, reject) => {
     try {
       let [error, res] = await uni.chooseImage({
         count: 1,
@@ -26,38 +33,36 @@ export default async function chooseImage2Base64() {
       if (error) {
         throw new Error(error);
       }
+      // #ifdef H5
       if (!/^image/.test(res.tempFiles[0].type)) {
-        throw new Error("文件类型错误");
+        throw new Error('文件类型错误');
       }
-      uni.showLoading({
-        mask: true,
+      // #endif
+      const tempFilePath = res.tempFilePaths[0];
+      let base64Data = '';
+      // #ifdef H5
+      base64Data = await blob2Base64(res.tempFiles[0]);
+      base64Data = (/.+;\s*base64\s*,\s*(.+)$/i.exec(base64Data) || [])[1];
+      resolve(base64Data);
+      // #endif
+      // #ifdef MP
+      base64Data = await uni.getFileSystemManager().readFile({
+        filePath: tempFilePath,
+        encoding: "base64",
+        success: ({
+          data
+        }) => {
+          resolve(data);
+        },
       });
-      let fileUrl = res.tempFilePaths[0];
-      return urlTobase64(fileUrl);
+      // #endif
+      // #ifdef APP-PLUS
+      base64Data = await filePath2Base64(tempFilePath);
+      base64Data = (/.+;\s*base64\s*,\s*(.+)$/i.exec(base64Data) || [])[1];
+      resolve(base64Data);
+      // #endif
     } catch (error) {
       throw new Error(error);
-    } finally {
-      uni.hideLoading();
     }
-}
-
-/**
- * 图片路径转换为base64格式
- * @param {object} url
- * @return {string} 返回图片的base64编码
- */
-async function urlTobase64(url) {
-  try {
-    const [error, res] = await uni.request({
-      url: url,
-      method: "GET",
-      responseType: "arraybuffer",
-    });
-    if (error) {
-      throw new Error(error);
-    }
-    return wx.arrayBufferToBase64(res.data);
-  } catch (e) {
-    throw new Error(e);
-  }
+  })
 }
