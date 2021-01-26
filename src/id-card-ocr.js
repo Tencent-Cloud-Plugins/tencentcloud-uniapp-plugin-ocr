@@ -23,7 +23,7 @@
  * @param {string} params.config - 可选字段具体参照身份证识别文档
  * @returns {Promise<object>} - 检测到的卡证信息
  */
-import ocr from "./api.js";
+import ocr from './api.js';
 export default function idCardOCR({ imageBase64, imageUrl, cardSide, config }) {
-  return ocr.idCardOCR({ imageBase64, imageUrl, cardSide, config });
+  return ocr.iDCardOCR({ imageBase64, imageUrl, cardSide, config });
 }

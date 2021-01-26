@@ -5,7 +5,7 @@
 | ----     | ---------------- |
 | 中文名称   | 腾讯云文字识别（OCR）插件 |
 | 英文名称   | tencentcloud-plugin-ocr |
-| 最新版本   | v1.0.1 (2020.11.05) |
+| 最新版本   | v1.0.2 (2021.01.26) |
 | 适用平台   | [DCloud uni-app](https://uniapp.dcloud.net.cn) |
 | 适用产品   | [腾讯云文字识别（OCR）](https://cloud.tencent.com/product/ocr) |
 | GitHub项目| [tencentcloud-uniapp-plugin-ocr](https://github.com/Tencent-Cloud-Plugins/tencentcloud-uniapp-plugin-ocr) |
@@ -86,7 +86,7 @@
 | 企业证照识别  | enterpriseLicenseOCR |
 | 护照识别（中国大陆地区护照）  | passportOCR |
 | 港澳台通行证识别  | permitOCR |
-| 身份证识别  | idCardOCR |
+| 身份证识别  | iDCardOCR |
 |  **票据单据识别接口**  | ----  |
 | 增值税发票识别  | vatInvoiceOCR |
 | 运单识别  | waybillOCR |
@@ -159,12 +159,14 @@ export default {
 > 暂无
 
 ## 7. GitHub版本迭代记录
+### 7.1. tencentcloud-uniapp-plugin-sms v1.0.2
 
-### 7.1. tencentcloud-uniapp-plugin-sms v1.0.1
+- 代码优化
+### 7.2. tencentcloud-uniapp-plugin-sms v1.0.1
 
 - APP端适配
 
-### 7.2. tencentcloud-uniapp-plugin-ocr v1.0.0
+### 7.3. tencentcloud-uniapp-plugin-ocr v1.0.0
 
 - 支持印刷体、手写体及定制化场景的图片文字识别服务，有效提升信息录入效率
 
